@@ -41,7 +41,11 @@ function addToCartClicked(e) {
   const cardItem = e.target.parentElement.parentElement;
   const itemTitle = cardItem.querySelector('.item-title').textContent;
   const itemImg = cardItem.querySelector('.card-img-top').src;
-  const itemPrice = cardItem.querySelector('.card-body .item-price').textContent.replace('Rp', '').replace(',00', '');
+
+  const itemPrices = Array.from(cardItem.querySelectorAll('.card-body .item-price'));
+  const itemPrice = itemPrices.filter(price => price.classList.contains('promo') === false)[0].textContent.replace('Rp', '').replace(',00', '');
+  // const itemPrice = cardItem.querySelector('.card-body .item-price').textContent.replace('Rp', '').replace(',00', '');
+  
   addItemToCard(itemTitle, itemPrice, itemImg);
   updateCartTotal();
 }
