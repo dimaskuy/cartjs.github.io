@@ -75,8 +75,14 @@ function addItemToCard(title, price, img) {
 
 function quantityChange(e) {
   const input = e.target;
-  if (isNaN(input.value) === true || input.value <= 0 === true) {
+  const checkComma = /\./.test(input.value);
+  const checkFirstComma = /^\./.test(input.value);
+  const checkZeroComma = /[0*]\./.test(input.value);
+
+  if (isNaN(input.value) === true || input.value <= 0 === true || checkZeroComma === true || checkFirstComma === true) {
     input.value = 1;
+  } else if (checkComma === true) {
+    input.value = Math.floor(input.value);
   }
   updateCartTotal();
 }
